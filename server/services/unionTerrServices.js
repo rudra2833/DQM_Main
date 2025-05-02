@@ -3,8 +3,6 @@ const fs = require("fs");
 const countNull = require("../utils/countNull");
 const db = require("../database/connection");
 const fileChanges = require("../utils/fileModification");
-const XLSX = require("xlsx");
-const axios = require("axios");
 const unionTerrServices = {
   async SelectedCode(filename, attributes) {
     try {

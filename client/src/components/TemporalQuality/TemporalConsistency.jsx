@@ -206,19 +206,13 @@ const TemporalConsistency = () => {
       </h3>
 
       <input
-        style={{
-          height: "50px",
-          width: "300px",
-          border: "1px solid #ccc",
-          borderRadius: "5px",
-          padding: "8px",
-          fontSize: "16px",
-        }}
-        onChange={handleFileChange}
-        type="file"
-        name="excelFile"
-      />
-      <br />
+            className="form-control uploadBtnInput"
+            id="formFile"
+            style={{ height: "2.5%", width: "355px" }}
+            onChange={handleFileChange}
+            type="file"
+            name="excelFile"
+          />
       <br />
       <Button onClick={fetchFieldNames}>Read Dataset</Button>
 

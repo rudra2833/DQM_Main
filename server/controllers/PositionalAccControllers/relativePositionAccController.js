@@ -11,8 +11,8 @@ const XLSX = require('xlsx');
 const client = new Client({
     user: 'postgres',
     host: 'localhost',
-    database: 'relative_positional_accuracy_a',
-    password: 'Rap@&2806',
+    database: process.env.db3,
+    password: process.env.dbpassword,
     port: 5432,
 });   
 

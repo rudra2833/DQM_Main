@@ -1,13 +1,14 @@
 // const poolForLgdLatLong = require("../database/connection"); // Ensure the correct path
 const Fuse = require("fuse.js");
 const { Pool } = require('pg');
+require("dotenv").config();
 
 const pool = new Pool({
     host: "localhost",
     port: "5432",
     user: "postgres",
-    password: "Rap@&2806",
-    database: "FPS_Bihar",
+    password: process.env.dbpassword,
+    database: process.env.db4,
 });
 
 pool.connect((err) => {

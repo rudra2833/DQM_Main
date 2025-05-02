@@ -107,6 +107,8 @@ const ThematicClassfication = () => {
   const [downloadedFileName, setDownloadedFileName] = useState("");
   const [actual_state, setActualState] = useState([])
   const [conf, setConf] = useState([])
+
+
   const handleFileChange = async (event) => {
     console.log(event.target.files)
     const selectedFile = event.target.files[0];
@@ -398,80 +400,7 @@ const ThematicClassfication = () => {
       range: { min: 0, max: 0 },
       selectedValues: {}
     }]);
-
-
   }
-
-
-  const handleSave = async () => {
-    console.log(domainData);
-    try {
-      const response = await axios.post(
-        "http://localhost:3001/api/domainconsistency/domain-log",
-        domainData
-      );
-      console.log(response.data);
-      fetchData();
-      setSource([]);
-      setTarget([]);
-      setRanges([]);
-      setRangesNotModify([]);
-      setDummyLists([]);
-      setSelectedValues([]);
-      setRowData([]);
-      setDomainRate(0);
-      setTotalRow([]);
-      setDomain([]);
-      setSelectedFilename("");
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const fetchData = async () => {
-    const response = await axios.get(
-      "http://localhost:3001/api/domainconsistency/domain-log"
-    );
-    console.log(response.data);
-    setSaveData(response.data.reverse());
-  };
-
-  const viewData = async (filename) => {
-    try {
-      const response = await axios.get(
-        `http://localhost:3001/api/view/${filename}`
-      );
-      setResponseData(response.data.file_data);
-      console.log(response.data.file_data);
-      setDownloadedFileName(filename);
-      setShowModal(true); // Show modal after receiving the response
-    } catch (error) {
-      console.log("Error fetching data:", error);
-    } finally {
-    }
-  };
-
-  const downloadTableData = () => {
-    // Create a new workbook
-    const wb = XLSX.utils.book_new();
-    // Convert table data to worksheet
-    const ws = XLSX.utils.json_to_sheet(responseData);
-    // Add worksheet to the workbook
-    XLSX.utils.book_append_sheet(wb, ws, "Data");
-    // Generate Excel file buffer
-    const wbout = XLSX.write(wb, { bookType: "xlsx", type: "array" });
-    // Convert buffer to blob
-    const blob = new Blob([wbout], { type: "application/octet-stream" });
-    // Save file using FileSaver.js
-    console.log(downloadedFileName.split(".")[0]);
-
-    FileSaver.saveAs(blob, `${downloadedFileName.split(".")[0]}.xlsx`);
-  };
-
-  useEffect(() => {
-    fetchData();
-    // console.log(rowData)
-  }, []);
 
   // ****
   const handleConfusionMatrix = async () => {
@@ -758,9 +687,6 @@ const ThematicClassfication = () => {
             {/* (parseFloat(100 - domainRate) * 100).toFixed(3)) */}
             <h4 style={{ color: "green", marginBottom: "10px" }}>Correctly classified Rate: {domainRate === 0 ? "---" : (parseFloat(100 - domainRate)).toFixed(2) + "%"}</h4>
             <h4 style={{ color: "red", marginBottom: "40px" }}>Misclassification Rate: {domainRate === 0 ? "---" : (parseFloat(domainRate)).toFixed(2) + "%"}</h4>
-            <button className="btn btn-primary" onClick={handleSave}>
-              Save
-            </button>
           </div>
         </center>
         <br />
@@ -822,86 +748,7 @@ const ThematicClassfication = () => {
         >
           <RelativeMissclassification data={actual_state}></RelativeMissclassification>
         </div>
-
-        <div
-          style={{ display: "flex", justifyContent: "center", height: "100%" }}
-        >
-          <div className="card" style={{ width: "85%" }}>
-            <DataTable
-              value={saveData}
-              paginator
-              rows={5}
-              rowsPerPageOptions={[5, 10, 25, 50]}
-              tableStyle={{ minWidth: "5rem" }}
-            >
-              {/* <Column
-                field=""
-                style={{ width: "5%" }}
-                body={(rowData) => (
-                  <>
-                    <input
-                      type="checkbox"
-                      checked={selectedIds.includes(rowData.omission_log_id)}
-                      onChange={(e) => {
-                        const { checked } = e.target;
-                        if (checked) {
-                          setSelectedIds((prevIds) => [
-                            ...prevIds,
-                            rowData.omission_log_id,
-                          ]);
-                        } else {
-                          setSelectedIds((prevIds) =>
-                            prevIds.filter(
-                              (id) => id !== rowData.omission_log_id
-                            )
-                          );
-                        }
-                      }}
-                    />
-                  </>
-                )}
-              ></Column> */}
-              <Column
-                field="filename"
-                header="Name of File"
-                style={{ width: "25%" }}
-              ></Column>
-
-              <Column
-                field="tested_date"
-                header="Tested Date"
-                style={{ width: "20%" }}
-              ></Column>
-              <Column
-                field="tested_result"
-                header="Test Result (%)"
-                style={{ width: "15%" }}
-              ></Column>
-              <Column
-                field="action"
-                header="View File"
-                style={{ width: "10%" }}
-                body={(rowData) => (
-                  <div className="btnCon">
-                    <VisibilityIcon
-                      style={{ cursor: "pointer" }}
-                      onClick={() => viewData(rowData.filename)}
-                    />
-                  </div>
-                )}
-              />
-            </DataTable>
-          </div>
-        </div>
       </div>
-
-      <ErrorModal
-        show={showModal}
-        onHide={() => setShowModal(false)}
-        fullscreen={true}
-        data={responseData}
-        filename={downloadedFileName}
-      />
     </>
   )
 }

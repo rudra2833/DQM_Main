@@ -5,8 +5,8 @@ const pool = new Pool({
   host: "localhost",
   port: "5432",
   user: "postgres",
-  password: "Rap@&2806",
-  database: "DQM_db_final",
+  password: process.env.dbpassword,
+  database: process.env.db1,
 });
 pool
   .connect()

@@ -14,8 +14,8 @@ import * as FileSaver from "file-saver";
 import { Modal, Button, Table, Spinner } from "react-bootstrap";
 import ErrorModal from "../../ErrorModal";
 import "../../Omission.css";
-import styled from 'styled-components';
-import RelativeMissclassification from '../../MisClassificationMatrix'
+import styled from "styled-components";
+import RelativeMissclassification from "../../MisClassificationMatrix";
 const TableWrapper = styled.div`
   max-height: 450px;
   overflow-y: auto;
@@ -51,7 +51,7 @@ const Option = styled.option`
 const Table1 = styled.table`
   width: 100%;
   border-collapse: collapse;
-  border: 1px solid #ccc; 
+  border: 1px solid #ccc;
   border-radius: 8px;
 `;
 
@@ -106,17 +106,16 @@ const ThematicClassfication = () => {
   const [showModal, setShowModal] = useState(false);
   const [responseData, setResponseData] = useState(null);
   const [downloadedFileName, setDownloadedFileName] = useState("");
-  const [actual_state, setActualState] = useState([])
-  const [conf, setConf] = useState([])
+  const [actual_state, setActualState] = useState([]);
+  const [conf, setConf] = useState([]);
   const handleFileChange = async (event) => {
-    console.log(event.target.files)
+    console.log(event.target.files);
     const selectedFile = event.target.files[0];
-    console.log(selectedFile)
+    console.log(selectedFile);
     // setFormData({excelFile : selectedFile})
     const formData = new FormData();
 
     formData.append("excelFile", selectedFile);
-
 
     for (let [key, value] of formData.entries()) {
       console.log(`${key}: ${value}`);
@@ -258,11 +257,11 @@ const ThematicClassfication = () => {
   };
 
   const handleCheckboxChange = (event, rowIndex, optionIndex) => {
-    console.log("hi")
+    console.log("hi");
     const { checked } = event.target;
-    console.log(checked)
+    console.log(checked);
     const updatedSelectedValues = [...selectedValues];
-    console.log(updatedSelectedValues)
+    console.log(updatedSelectedValues);
     const updatedRowData = [...rowData];
 
     updatedSelectedValues[rowIndex] = {
@@ -383,97 +382,26 @@ const ThematicClassfication = () => {
     // console.log(setSelectedValues)'
 
     dummyLists.forEach((item) => {
-      setSelectedValues([{
-        dummyList: [],
-        range: { min: 0, max: 0 },
-        selectedValues: [...item]
-      }]);
+      setSelectedValues([
+        {
+          dummyList: [],
+          range: { min: 0, max: 0 },
+          selectedValues: [...item],
+        },
+      ]);
     });
-
-  }
+  };
   const handleDeSelect = () => {
     // console.log(setSelectedValues)'
 
-
-    setSelectedValues([{
-      dummyList: [],
-      range: { min: 0, max: 0 },
-      selectedValues: {}
-    }]);
-
-
-  }
-
-
-  const handleSave = async () => {
-    console.log(domainData);
-    try {
-      const response = await axios.post(
-        "http://localhost:3001/api/domainconsistency/domain-log",
-        domainData
-      );
-      console.log(response.data);
-      fetchData();
-      setSource([]);
-      setTarget([]);
-      setRanges([]);
-      setRangesNotModify([]);
-      setDummyLists([]);
-      setSelectedValues([]);
-      setRowData([]);
-      setDomainRate(0);
-      setTotalRow([]);
-      setDomain([]);
-      setSelectedFilename("");
-    } catch (error) {
-      console.log(error);
-    }
+    setSelectedValues([
+      {
+        dummyList: [],
+        range: { min: 0, max: 0 },
+        selectedValues: {},
+      },
+    ]);
   };
-
-  const fetchData = async () => {
-    const response = await axios.get(
-      "http://localhost:3001/api/domainconsistency/domain-log"
-    );
-    console.log(response.data);
-    setSaveData(response.data.reverse());
-  };
-
-  const viewData = async (filename) => {
-    try {
-      const response = await axios.get(
-        `http://localhost:3001/api/view/${filename}`
-      );
-      setResponseData(response.data.file_data);
-      console.log(response.data.file_data);
-      setDownloadedFileName(filename);
-      setShowModal(true); // Show modal after receiving the response
-    } catch (error) {
-      console.log("Error fetching data:", error);
-    } finally {
-    }
-  };
-
-  const downloadTableData = () => {
-    // Create a new workbook
-    const wb = XLSX.utils.book_new();
-    // Convert table data to worksheet
-    const ws = XLSX.utils.json_to_sheet(responseData);
-    // Add worksheet to the workbook
-    XLSX.utils.book_append_sheet(wb, ws, "Data");
-    // Generate Excel file buffer
-    const wbout = XLSX.write(wb, { bookType: "xlsx", type: "array" });
-    // Convert buffer to blob
-    const blob = new Blob([wbout], { type: "application/octet-stream" });
-    // Save file using FileSaver.js
-    console.log(downloadedFileName.split(".")[0]);
-
-    FileSaver.saveAs(blob, `${downloadedFileName.split(".")[0]}.xlsx`);
-  };
-
-  useEffect(() => {
-    fetchData();
-    // console.log(rowData)
-  }, []);
 
   // ****
   const handleConfusionMatrix = async () => {
@@ -486,11 +414,10 @@ const ThematicClassfication = () => {
       // generateConfusionMatrix(response?.data?.result);
       setConf(response?.data?.result);
       console.log(response?.data);
-
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   // const generateConfusionMatrix = (data) => {
   //   const labels = Array.from(new Set(data.map(item => item.actual).concat(data.map(item => item.pred))));
@@ -508,7 +435,6 @@ const ThematicClassfication = () => {
   //   });
 
   // };
-
 
   return (
     <>
@@ -554,42 +480,40 @@ const ThematicClassfication = () => {
                   <th style={{ width: "15%" }}>Attributes</th>
                   <th style={{ width: "25%" }}>Data type</th>
                   <th style={{ width: "25%" }}>Range in data</th>
-                  <th style={{ width: "12.5%", marginBottom: "10px" }}>Required range
+                  <th style={{ width: "12.5%", marginBottom: "10px" }}>
+                    Required range
                     <button
                       onClick={handleSelect}
                       style={{
-                        padding: '5px 10px',
-                        fontSize: '12px',
-                        borderRadius: '5px',
-                        backgroundColor: '#007BFF',
-                        color: 'white',
-                        border: 'none',
-                        cursor: 'pointer',
-                        marginBottom: "10px"
+                        padding: "5px 10px",
+                        fontSize: "12px",
+                        borderRadius: "5px",
+                        backgroundColor: "#007BFF",
+                        color: "white",
+                        border: "none",
+                        cursor: "pointer",
+                        marginBottom: "10px",
                       }}
                     >
                       Select Items
                     </button>
-
                     <button
                       onClick={handleDeSelect}
                       style={{
-                        padding: '5px 10px',
-                        fontSize: '12px',
-                        borderRadius: '5px',
+                        padding: "5px 10px",
+                        fontSize: "12px",
+                        borderRadius: "5px",
                         backgroundColor: "red",
-                        color: 'white',
-                        border: 'none',
-                        cursor: 'pointer'
+                        color: "white",
+                        border: "none",
+                        cursor: "pointer",
                       }}
                     >
                       DeSelect Items
                     </button>
                   </th>
                   <th style={{ width: "12.5%" }}>Selected range</th>
-                  <th style={{ width: "12.5%" }}>
-                    Total attributes
-                  </th>
+                  <th style={{ width: "12.5%" }}>Total attributes</th>
                   <th style={{ width: "12.5%" }}>classified Incorrect</th>
                   <th style={{ width: "12.5%" }}>classified correct</th>
                 </tr>
@@ -662,7 +586,7 @@ const ThematicClassfication = () => {
                                   value={option}
                                   checked={
                                     selectedValues[rowIndex]?.selectedValues[
-                                    optionIndex
+                                      optionIndex
                                     ] || false
                                   }
                                   onChange={(event) =>
@@ -754,29 +678,38 @@ const ThematicClassfication = () => {
             </Table>
           </div>
           <div>
-            <button className="btn btn-primary" style={{ marginBottom: "40px" }} onClick={handleCalculateRate}>
+            <button
+              className="btn btn-primary"
+              style={{ marginBottom: "40px" }}
+              onClick={handleCalculateRate}
+            >
               Calculate error rate
             </button>
             {/* (parseFloat(100 - domainRate) * 100).toFixed(3)) */}
-            <h4 style={{ color: "green", marginBottom: "10px" }}>Correctly classified Rate: {domainRate === 0 ? "---" : (parseFloat(100 - domainRate)).toFixed(2) + "%"}</h4>
-            <h4 style={{ color: "red", marginBottom: "40px" }}>Misclassification Rate: {domainRate === 0 ? "---" : (parseFloat(domainRate)).toFixed(2) + "%"}</h4>
-            <button className="btn btn-primary" onClick={handleSave}>
-              Save
-            </button>
+            <h4 style={{ color: "green", marginBottom: "10px" }}>
+              Correctly classified Rate:{" "}
+              {domainRate === 0
+                ? "---"
+                : parseFloat(100 - domainRate).toFixed(2) + "%"}
+            </h4>
+            <h4 style={{ color: "red", marginBottom: "40px" }}>
+              Misclassification Rate:{" "}
+              {domainRate === 0
+                ? "---"
+                : parseFloat(domainRate).toFixed(2) + "%"}
+            </h4>
           </div>
         </center>
         <br />
         {/* **** */}
         <center>
-          <button className="btn btn-primary" onClick={handleConfusionMatrix}>Confusion Matrix</button>
+          <button className="btn btn-primary" onClick={handleConfusionMatrix}>
+            Confusion Matrix
+          </button>
         </center>
 
         <div style={{ display: "flex" }}>
-
-
           <MainContainer>
-
-
             <DataContainer>
               <div style={{ display: "flex", width: "100%" }}>
                 <h4>Data Table</h4>
@@ -789,7 +722,6 @@ const ThematicClassfication = () => {
                       <TableHeader>Sr No.</TableHeader>
                       <TableHeader>Dataset values</TableHeader>
                       <TableHeader>True values</TableHeader>
-
                     </tr>
                   </thead>
                   <tbody>
@@ -798,113 +730,31 @@ const ThematicClassfication = () => {
                         <TableCell>{index + 1}</TableCell>
                         <TableCell>{item?.pred}</TableCell>
                         <TableCell>{item?.actual}</TableCell>
-
                       </TableBodyRow>
                     ))}
                   </tbody>
                 </Table1>
               </TableWrapper>
             </DataContainer>
-
-
-
-
           </MainContainer>
-
 
           {/* <ConfusionMatrix data={actual_state} /> */}
         </div>
-        <div style={{
-          width: "100%",
-          height: "1000px",
-          overflow: "auto",
-          marginBottom: "100px"
-        }}>
-
-          <RelativeMissclassification data={actual_state}></RelativeMissclassification>
-        </div>
-
         <div
-          style={{ display: "flex", justifyContent: "center", height: "100%" }}
+          style={{
+            width: "100%",
+            height: "1000px",
+            overflow: "auto",
+            marginBottom: "100px",
+          }}
         >
-          <div className="card" style={{ width: "85%" }}>
-            <DataTable
-              value={saveData}
-              paginator
-              rows={5}
-              rowsPerPageOptions={[5, 10, 25, 50]}
-              tableStyle={{ minWidth: "5rem" }}
-            >
-              {/* <Column
-                field=""
-                style={{ width: "5%" }}
-                body={(rowData) => (
-                  <>
-                    <input
-                      type="checkbox"
-                      checked={selectedIds.includes(rowData.omission_log_id)}
-                      onChange={(e) => {
-                        const { checked } = e.target;
-                        if (checked) {
-                          setSelectedIds((prevIds) => [
-                            ...prevIds,
-                            rowData.omission_log_id,
-                          ]);
-                        } else {
-                          setSelectedIds((prevIds) =>
-                            prevIds.filter(
-                              (id) => id !== rowData.omission_log_id
-                            )
-                          );
-                        }
-                      }}
-                    />
-                  </>
-                )}
-              ></Column> */}
-              <Column
-                field="filename"
-                header="Name of File"
-                style={{ width: "25%" }}
-              ></Column>
-
-              <Column
-                field="tested_date"
-                header="Tested Date"
-                style={{ width: "20%" }}
-              ></Column>
-              <Column
-                field="tested_result"
-                header="Test Result (%)"
-                style={{ width: "15%" }}
-              ></Column>
-              <Column
-                field="action"
-                header="View File"
-                style={{ width: "10%" }}
-                body={(rowData) => (
-                  <div className="btnCon">
-                    <VisibilityIcon
-                      style={{ cursor: "pointer" }}
-                      onClick={() => viewData(rowData.filename)}
-                    />
-                  </div>
-                )}
-              />
-            </DataTable>
-          </div>
+          <RelativeMissclassification
+            data={actual_state}
+          ></RelativeMissclassification>
         </div>
       </div>
-
-      <ErrorModal
-        show={showModal}
-        onHide={() => setShowModal(false)}
-        fullscreen={true}
-        data={responseData}
-        filename={downloadedFileName}
-      />
     </>
-  )
-}
+  );
+};
 
-export default ThematicClassfication
+export default ThematicClassfication;

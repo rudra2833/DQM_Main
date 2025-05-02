@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 const bodyParser = require("body-parser");
-const PORT = 3001;
+// const PORT = 3001;
 
 const fs = require('fs/promises');
 const path = require('path');
@@ -128,7 +128,7 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: "Internal Server Error" });
 });
 
-app.listen(PORT, () => {
-  console.log(`listening on ${PORT}`);
+app.listen(process.env.PORT, () => {
+  console.log(`listening on ${process.env.PORT}`);
 });
 

@@ -47,6 +47,11 @@ const FormatConsist = () => {
         <option value="District">District Format</option>
         <option value="UnionTerrorits">Union Territories Format</option>
       </select>
+      <div className="alert alert-primary" style={{ margin: "20px 100px" }}>
+        <b>Definition: </b> Format Consistency ensures that data values adhere
+        to the specified format, structure and encoding rules
+        <br />
+      </div>
 
       {selectedFormat === "StationCode" && <Pincode />}
       {selectedFormat === "PhoneNo" && <Phoneformate />}
@@ -61,11 +66,6 @@ const FormatConsist = () => {
       {selectedFormat === "Railway" && <Railways />}
 
       
-      <div className="alert alert-primary" style={{ margin: "20px 100px" }}>
-        <b>Definition: </b> Format Consistency ensures that data values adhere
-        to the specified format, structure and encoding rules
-        <br />
-      </div>
     </div>
   );
 };

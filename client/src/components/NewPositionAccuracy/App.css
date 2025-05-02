@@ -29,7 +29,7 @@
 .RelativeApp .left-panel {
   flex: 1;
   min-width: 300px;
-  max-width: 350px;
+  max-width: 400px;
   background-color: #ffffff;
   padding: 20px;
   border-radius: 8px;

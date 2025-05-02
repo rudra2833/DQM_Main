@@ -11,8 +11,8 @@ const path = require('path');
 const client = new Client({
   user: 'postgres',
   host: 'localhost',
-  database: 'absolute_position_accuracy_a',
-  password: 'Rap@&2806', // Replace with your actual database password
+  database: process.env.db2,
+  password: process.env.dbpassword, // Replace with your actual database password
   port: 5432,
 });
 

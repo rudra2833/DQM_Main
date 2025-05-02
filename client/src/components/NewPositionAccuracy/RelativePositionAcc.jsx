@@ -171,8 +171,10 @@ const RelativePositionAcc = () => {
         <div className="left-panel">
           <div className="file-input-container">
             <label htmlFor="file">Points File:</label>
-            <input
+             <input
+              className="form-control uploadBtnInput"
               id="file"
+              style={{ height: "2.5%", width: "355px" }}
               type="file"
               onChange={(e) => setFile(e.target.files[0])}
             />

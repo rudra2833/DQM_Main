@@ -97,6 +97,7 @@ const Comission = () => {
       fetchFieldNames();
     }
   }, [childData, fetchFieldNames]);
+
   const sendFieldNames = () => {
     if (target.length > 0) {
       console.log(target.length);
@@ -105,7 +106,7 @@ const Comission = () => {
       const committed = total - target.length;
       const comission = ((total - target.length) / total) * 100;
       setComissionRate(comission);
-      console.log(comissionRate);
+      console.log("commission rate:",comissionRate);
       const rows = {
         selectedFilename: selectedFilename,
         total: total,
@@ -129,14 +130,22 @@ const Comission = () => {
     }
   };
 
+  useEffect(() => {
+    if (comissionRate) {
+      setComission((prevComission) => ({
+        ...prevComission,
+        comission_rate: comissionRate.toFixed(2),
+      }));
+    }
+  }, [comissionRate]);
+
   const handleSave = async () => {
     try {
-      console.log(comission);
+      console.log("Log:",comission);
       const response = await axios.post(
         "http://localhost:3001/api/comission/comission-log/",
         comission
       );
-      console.log(response.data);
       fetchData();
     } catch (err) {
       console.log(err);
@@ -331,12 +340,12 @@ const Comission = () => {
               <Column
                 field="file_name"
                 header="Name of File"
-                style={{ width: "25%" }}
+                style={{ width: "25%" , maxWidth: "200px"}}
               ></Column>
               <Column
                 field="field_names"
                 header="Field Names"
-                style={{ width: "25%" }}
+                style={{ width: "25%" , maxWidth: "200px"}}
               ></Column>
               <Column
                 field="checked_on"

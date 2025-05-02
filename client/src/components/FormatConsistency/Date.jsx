@@ -52,10 +52,6 @@ const TableRow = ({ index, style, data }) => {
 
 const YourComponent = () => {
   const [jsonData, setJsonData] = useState([]);
-  const [jData, setJData] = useState([]);
-  const [responseData, setResponseData] = useState([]);
-  // const [accuracy, setAccuracy] = useState(0);
-  const [showModal, setShowModal] = useState(false);
   const [tableData, setTableData] = useState([]);
   const handleFileChange = async (event) => {
     const selectedFile = event.target.files[0];
@@ -72,11 +68,8 @@ const YourComponent = () => {
           },
         }
       );
-      // console.log(response.data);
-      // console.log(selectedFile.name);
  
       setJsonData(response.data.data);
-      // setAccuracy(response.data.accuracy);
       const rows = {
         filename: selectedFile.name,
         total: response.data.count + response.data.t,
@@ -91,22 +84,6 @@ const YourComponent = () => {
     }
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:3001/api/generaldetails/getdata"
-        );
-        setJData(response.data);
-        // Process the response here
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
   const downloadExcel = () => {
     const ws = XLSX.utils.json_to_sheet(jsonData);
     const wb = XLSX.utils.book_new();
@@ -114,33 +91,11 @@ const YourComponent = () => {
     XLSX.writeFile(wb, "data.xlsx");
   };
 
-  const handleeyedata = async (c) => {
-    const data = {
-      file_name: c,
-    };
-    // console.log(c);
-    try {
-      const response = await axios.post(
-        "http://localhost:3001/api/generaldetails/getfiledata",
-        data
-      );
-      setResponseData(response.data);
-      console.log(response.data);
-      // Process the response here
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  };
-
-  const viewData = (c) => {
-    handleeyedata(c);
-    setShowModal(true);
-  };
-
   return (
     <>
       <MainContainer>
         <center>
+          <h2>Date Format</h2>
           <input
             className="form-control uploadBtnInput"
             id="formFile"
@@ -197,12 +152,12 @@ const YourComponent = () => {
         </center>
 
         <div className="mt-4">
-          <h2 className="text-lg font-bold mb-2">JSON Data</h2>
           {/* <p>Accuracy: {accuracy.toFixed(2)}%</p> */}
           <center>
 
             {jsonData.length !== 0 && (
               <>
+              <h2 className="text-lg font-bold mb-2">JSON Data</h2>
                 <DataContainer style={{ marginTop: "20px", alignItems: "center" }}>
                   <h4>Filter Table</h4>
                   <List
@@ -230,71 +185,10 @@ const YourComponent = () => {
           </center>
         </div>
       </MainContainer>
-
-      {/* {jData} */}
-      <div style={{ display: "flex", justifyContent: "center", height: "100%" }}>
-        <div className="card" style={{ width: "85%" }}>
-          <DataTable
-            value={jData}
-            paginator
-            rows={5}
-            rowsPerPageOptions={[5, 10, 25, 50]}
-            tableStyle={{ minWidth: "5rem" }}
-          >
-            <Column field="file_name" header="file_name" style={{ width: "25%" }}></Column>
-            <Column field="created_date" header="created_date" style={{ width: "25%" }}></Column>
-            <Column field="accuracy" header="Accuracy" style={{ width: "25%" }}></Column>
-            <Column
-              field="action"
-              header="View/Download"
-              body={(rowData) => (
-                <div className="btnCon">
-                  <VisibilityIcon
-                    style={{ cursor: "pointer" }}
-                    onClick={() => viewData(rowData.file_name)}
-                  />
-                </div>
-              )}
-            />
-          </DataTable>
-
-          <Modal show={showModal} onHide={() => setShowModal(false)} fullscreen={true}>
-            <Modal.Header closeButton>
-              <Modal.Title>View Data</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              {/* Table to display response data */}
-              <Table striped bordered hover>
-                <thead>
-                  <tr>
-                    {responseData.length > 0 &&
-                      Object.keys(responseData[0]).map((key) => <th key={key}>{key}</th>)}
-                  </tr>
-                </thead>
-                <tbody>
-                  {responseData.map((item, index) => (
-                    <tr key={index}>
-                      {Object.keys(responseData[0]).map((key, i) => (
-                        <td key={i}>{item[key]}</td>
-                      ))}
-                    </tr>
-                  ))}
-                </tbody>
-              </Table>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button variant="secondary" onClick={() => setShowModal(false)}>
-                Close
-              </Button>
-              <Button variant="primary" onClick={downloadExcel}>
-                Download Excel
-              </Button>
-            </Modal.Footer>
-          </Modal>
-        </div>
-      </div>
     </>
   );
 };
 
 export default YourComponent;
+
+// git commit -m "Front end fixing, .env creating, fullstarting added"

@@ -1,5 +1,4 @@
 const fs = require("fs");
-const Papa = require("papaparse");
 const xlsx = require("xlsx");
 const { Pool } = require("pg");
 

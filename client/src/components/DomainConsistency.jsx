@@ -298,10 +298,9 @@ const DomainConsistency = () => {
         total: inDomainSum + outDomainSum,
         correct: inDomainSum,
         incorrect: outDomainSum,
-        domainRate: domainRate
+        domainRate: res.data.result.domainConsistency,
       }
       setTableData([rows]);
-      console.log(res.data);
       setDomainRate(res.data.result.domainConsistency);
       setTotalRow(res.data.result.totalChecks);
       setDomain(res.data.result.outDomain);
@@ -386,6 +385,13 @@ const DomainConsistency = () => {
   useEffect(() => {
     fetchData();
   }, []);
+
+  useEffect(() => {
+    if(tableData.length > 0) {
+      console.log("console:",tableData);
+      setDomainRate(tableData[0].domainConsistency);
+    }
+  });
 
   return (
     <>
