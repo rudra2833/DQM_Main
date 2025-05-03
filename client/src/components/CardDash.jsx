@@ -72,7 +72,8 @@ const CardDash = ({
     "Internal/Relative Positional Accuracy": "/relativepositionalaccuracy",
     "Gridded Data Positional Accuracy": "/griddedpositionalaccuracy",
     "Temporal Consistency": "/temporalconsist",
-    "Conceptual Consistency": "/conceptual-consistency"
+    "Conceptual Consistency": "/conceptual-consistency",
+    "Topological Consistency": "/topologicalconsistency",
   };
 
   const borders = ["success", "danger", "info", "warning", "dark", "primary"];

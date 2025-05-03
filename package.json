@@ -3,12 +3,14 @@
         "start": "concurrently \"npm run server\" \"npm run client\"",
         "server": "cd server && npm start",
         "client": "cd client && npm start",
-        
         "new": "concurrently \"npm run serverinit\" \"npm run clientinit\"",
         "serverinit": "cd server && npm i && npm start",
         "clientinit": "cd client && npm i && npm start"
     },
     "devDependencies": {
         "concurrently": "^9.1.2"
+    },
+    "dependencies": {
+        "csv-writer": "^1.6.0"
     }
 }

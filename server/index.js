@@ -68,7 +68,7 @@ const absolutePositionAccRoutes = require('./routes/absolutePositionAccRoutes');
 app.use('/api/absolutePositionAcc',absolutePositionAccRoutes)
 
 const usecaseRoutes = require("./routes/usecaseRoutes");  
- app.use("/api/usecases", usecaseRoutes);    
+app.use("/api/usecases", usecaseRoutes);    
  
 // ********************************************************
 

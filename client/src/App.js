@@ -54,6 +54,11 @@ import ConceptualConsistency from "./components/ConceptualConsistency.jsx";
 import Usecases from "./components/Usecases";
  import LgdLatLong from "./components/Usecases/LgdLatLong.jsx"
 
+
+//topological added
+import TopologicalConsistency from "./components/TopologyicalConsistency/TopologicalConsistency.jsx";
+import PolygonOverlap from "./components/TopologyicalConsistency/PolygonOverlap.jsx";
+
 function App() {
   return (
     <BrowserRouter>
@@ -101,6 +106,14 @@ function App() {
           {/* usecase added */}
          <Route path="/usecases" element={<Usecases />} />
          <Route path="/usecases/lgdlatlong" element={<LgdLatLong />} />
+
+
+
+         {/* topological added */}
+          <Route path="/topologicalconsistency" element={<TopologicalConsistency />} />
+          <Route path="/topologicalconsistency/polygonOverLap" element={<PolygonOverlap />} />
+          
+          
       </Routes>
     </BrowserRouter>
   );

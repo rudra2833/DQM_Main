@@ -5,7 +5,7 @@ import Card from "react-bootstrap/Card";
 const Usecases = () => {
   const documents = [
     { title: "Geospatial Data Correction Using Administrative Boundaries", url: "/usecases/lgdlatlong" },
-    { title: "Geospartial Completeness Check", url: "/usecases/geoSpartialCommissionCheck" },
+    { title: "Geospatial Completeness Check", url: "/usecases/geoSpartialCommissionCheck" },
     // { title: "Something Else", url: "/usecases/somethingelse" },
   ];
 
