@@ -130,7 +130,7 @@ const TemporalConsistency = () => {
           attributes: target,
         }
       );
-      
+
       const {
         validCount,
         ambiguousCount,
@@ -140,7 +140,6 @@ const TemporalConsistency = () => {
         totalDates,
         filterDates,
       } = response.data.result;
-
 
       setData({
         validCount,
@@ -174,29 +173,30 @@ const TemporalConsistency = () => {
     let filteredDates = [];
 
     switch (condition) {
-      case 'greater_than':
+      case "greater_than":
         filteredDates = data.filterDates.filter(
           (date) => new Date(date) > parsedDate1
         );
         break;
-      case 'lesser_than':
+      case "lesser_than":
         filteredDates = data.filterDates.filter(
           (date) => new Date(date) < parsedDate1
         );
         break;
-      case 'between_include':
+      case "between_include":
         filteredDates = data.filterDates.filter(
-          (date) => new Date(date) >= parsedDate1 && new Date(date) <= parsedDate2
+          (date) =>
+            new Date(date) >= parsedDate1 && new Date(date) <= parsedDate2
         );
         break;
-      case 'between_exclude':
+      case "between_exclude":
         filteredDates = data.filterDates.filter(
           (date) => new Date(date) > parsedDate1 && new Date(date) < parsedDate2
         );
         break;
-      case 'and':
-      case 'or':
-      case 'xor':
+      case "and":
+      case "or":
+      case "xor":
         // Add your custom logic for 'and', 'or', 'xor' if needed
         break;
       default:
@@ -214,15 +214,24 @@ const TemporalConsistency = () => {
       <h3 style={{ marginTop: "10px", marginBottom: "10px" }}>
         Temporal Validity
       </h3>
-
+      <div
+        className="alert alert-primary"
+        style={{ margin: "20px 100px", textAlign: "justify" }}
+      >
+        <b>Definition: </b> Validity of data with respect to time.
+        <br />
+        <b>Reference: </b>ISO 19157:2013(E) Annex D(D.5.3) - The data quality
+        measures for the data quality element Temporal Consistency are provided
+        in Tables D.14 to D.18. (Page No. 96)
+      </div>
       <input
-            className="form-control uploadBtnInput"
-            id="formFile"
-            style={{ height: "2.5%", width: "355px" }}
-            onChange={handleFileChange}
-            type="file"
-            name="excelFile"
-          />
+        className="form-control uploadBtnInput"
+        id="formFile"
+        style={{ height: "2.5%", width: "355px" }}
+        onChange={handleFileChange}
+        type="file"
+        name="excelFile"
+      />
       <br />
       <Button onClick={fetchFieldNames}>Read Dataset</Button>
 
@@ -244,9 +253,13 @@ const TemporalConsistency = () => {
       <Button onClick={fetchStationCode} style={{ marginBottom: "90px" }}>
         Start Test
       </Button>
-      <Button onClick={fetchStationCode} variant="danger" style={{width:"200px" ,marginLeft:"550px"}} >
-      Reset
-    </Button>
+      <Button
+        onClick={fetchStationCode}
+        variant="danger"
+        style={{ width: "200px", marginLeft: "550px" }}
+      >
+        Reset
+      </Button>
       {data?.filterDates.length !== 0 && (
         <TableWrapper>
           <center>

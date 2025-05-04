@@ -163,8 +163,10 @@ const RelativePositionAcc = () => {
     <div className="RelativeApp">
       <h1>Relative Positional Accuracy Measurement Tool</h1>
 
-      <div className="alert alert-primary" style={{margin: "20px 100px", }}>
+      <div className="alert alert-primary" style={{margin: "20px 100px", textAlign: "justify"}}>
           <b>Definition: </b> Relative Positional Accuracy measures the accuracy of a location in relation to other nearby points rather than its exact position on a coordinate system.
+          <br />
+          <b>Reference: </b>ISO 19157:2013(E) Annex D(D.4.1.4) - The data quality measures for the data quality element Relative or Interal Positional Accuracy are provided in Tables D.44 to D.53. (Page No. 91)
       </div>
 
       <div className="main-content">

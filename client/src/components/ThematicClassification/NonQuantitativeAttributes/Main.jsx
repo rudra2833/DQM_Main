@@ -4,7 +4,7 @@ import RailwayZones from './RailwayZonesNonQuantitative';
 
 
 const FormatConsist = () => {
-  const [selectedFormat, setSelectedFormat] = useState('StationCode');
+  const [selectedFormat, setSelectedFormat] = useState('Select the option');
 
   const handleFormatChange = (event) => {
     setSelectedFormat(event.target.value);
@@ -27,7 +27,7 @@ const FormatConsist = () => {
         }}
       >
        
-       
+       <option value="Select the option">Select the option</option>
         <option value="StationCode">Station Code </option>
         
         <option value="Railway">Railway Zones </option>
@@ -36,6 +36,13 @@ const FormatConsist = () => {
       {selectedFormat === "StationCode" && <StationCode />}
       {selectedFormat === "Railway" && <RailwayZones />}
       
+      {selectedFormat === "Select the option" && (
+        <div className="alert alert-primary" style={{ margin: "20px 100px", textAlign: "justify" }}>
+          <b>Definition: </b> Measure of whether a non-quantitative attribute is correct or incorrect.
+          <br />
+          <b>Reference: </b>ISO 19157:2013(E) Annex D(D.6.2) - The data quality measures for the data quality element Non-Quantitative Attribute Correctness are provided in Tables D.68 to D.70. (Page No. 101)
+        </div>
+      )}
     </div>
   )
 }

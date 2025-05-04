@@ -36,7 +36,13 @@ const ConceptualConsistency = () => {
       {selected === "LatLonStateValidation" && <LatLonStateValidation />}
       {selected === "StateDistrictValidation" && <StateDistrictValidation />}
       {selected === "PincodeDistrictValidation" && <PincodeDistrictValidation />}
-      
+      {selected === "Select the option" && (
+        <div className="alert alert-primary" style={{ margin: "20px 100px", textAlign: "justify" }}>
+          <b>Definition: </b>Conceptual consistency refers to adherence to defined data rules, models, and structures. It checks whether the dataset follows the expected schema, including mandatory attributes and their valid values.
+          <br />
+          <b>Reference: </b>ISO 19157:2013(E) Annex D(D.3.1) - The data quality measures for the data quality  element Conceptual Consistency are provided in Tables D.8 to D.13. (Page No. 54) 
+        </div>
+      )}
     </div>
   );
 };

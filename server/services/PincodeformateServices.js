@@ -12,29 +12,35 @@ const pincodeServices = {
 
     // Function to extract specific properties from each object
     const extractProperties = (dataArray) => {
-        return dataArray.map((item) => ({
-            state: item.state || "",
-            district: item.district || "",
-            city: item.city !== "NULL" ? item.city : "",
-            pincode: item.pincode || "",
-        }));
+      return dataArray.map((item) => ({
+        state: item.state || "",
+        district: item.district || "",
+        city: item.city !== "NULL" ? item.city : "",
+        pincode: item.pincode || "",
+      }));
     };
 
-    // Function to validate a single pincode using the provided regex pattern
+    // Step 1: Fetch all valid pincodes from DB
+    const result = await db.query("SELECT DISTINCT pincode FROM public.pincodedistrict");
+
+    // Step 2: Convert result rows to a Set of pincodes for fast lookup
+    const validPincodes = new Set(result.rows.map(row => String(row.pincode)));
+
+    // Step 3: Replace regex-based validation with DB lookup
     function isValidPincode(pincode) {
-        const pincodePattern = /^[1-9]{1}[0-9]{2}\s{0,1}[0-9]{3}$/;
-        return pincodePattern.test(pincode);
+      return validPincodes.has(String(pincode));
     }
+
 
     // Extracted array of objects with specific properties
     const extractedData = extractProperties(data);
 
     // Function to validate pincodes and return the required array of objects
     function validatePincodes(extractedData) {
-        return extractedData.map((item) => ({
-            pincode: String(item.pincode),
-            isvalid: isValidPincode(String(item.pincode))
-        }));
+      return extractedData.map((item) => ({
+        pincode: String(item.pincode),
+        isvalid: isValidPincode(String(item.pincode))
+      }));
     }
 
     // Validate pincodes in the extracted data array

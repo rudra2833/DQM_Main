@@ -439,7 +439,7 @@ const ThematicClassfication = () => {
   return (
     <>
       <div>
-        <h2>&nbsp;ThematicClassification</h2>
+      <h2>&nbsp;Classification Correctness(State)</h2>
         <br />
         <center>
           <input

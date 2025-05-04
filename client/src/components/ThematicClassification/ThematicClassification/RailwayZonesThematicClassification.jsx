@@ -440,7 +440,7 @@ const ThematicClassfication = () => {
   return (
     <>
       <div>
-        <h2>&nbsp;ThematicClassification</h2>
+      <h2>&nbsp;Classification Correctness(Railway Zones)</h2>
         <br />
         <center>
           <input

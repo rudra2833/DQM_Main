@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import './Navbar.css';
 
 const Navbar = () => {
+  const location = useLocation();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const toggleSidebar = () => {
@@ -23,7 +24,7 @@ const Navbar = () => {
     let content;
     const button = document.querySelector(".collapsible");
 
-    switch(container) {
+    switch (container) {
       case 'content1':
         content = document.querySelector(".content1");
         break;
@@ -46,19 +47,39 @@ const Navbar = () => {
 
   return (
     <div>
-      <nav className="navbar navbar-expand-lg " style={{ boxShadow: '0 2px 4px rgba(0, 0, 0, 0.3)', backgroundColor: '#b8b8ff' }}>
-        <div className="container-fluid">
-          <h4>
-            <Link to="/" className="navbar-brand fs-2 fw-bold">
-            <img  className="logo-img" src="bisag_logo.png" alt="logo" />
-            </Link>
-            <Link className="logo" to="/generaldetails">Home</Link>
-            <Link className="logo" to="/usecases">Usecases</Link>
-          </h4> 
-          <button className="btn" type="button" onClick={toggleSidebar} aria-controls="offcanvasExample">
-            <span className="navbar-toggler-icon"></span>
-          </button>
-        </div>
+      <nav className="navbar navbar-expand-lg " style={{ boxShadow: '0 2px 4px rgba(0, 0, 0, 0.3)', backgroundColor: '#b8b8ff', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+     
+
+ 
+            <div style={{ paddingTop: '0.5rem', display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+              <h4>
+                <Link to="/" className="navbar-brand fs-2 fw-bold">
+                  <img className="logo-img" src="bisag_logo.png" alt="logo" />
+                </Link>
+                <Link className="logo" to="/generaldetails" style={{ marginLeft: '10px' }}>Home</Link>
+              </h4>
+            </div>
+            {location.pathname !== '/' && (
+              <div style={{ display: 'flex', flexDirection:'column', flexGrow: 1, marginLeft: '20px', marginRight: '20px' }}>
+                <h2 style={{
+                  textAlign: "center", background: 'linear-gradient(to right , #2e75b6, #2e75b6, #2e75b6, #973b5b, #ff0000, #973b5b, #2e75b6, #2e75b6, #2e75b6)', WebkitTextFillColor: 'transparent',
+                  WebkitBackgroundClip: 'text', paddingBottom: "5px", marginTop: "0.5rem" 
+                }}><b>Data Quality Assessment</b>
+                </h2>
+                <small style={{textAlign:'center', marginTop:'-5px', marginBottom: '10px', fontStyle: 'oblique'}}>
+                Reference: ISO 19157-1:2023(E) Geographic information - Data Quality – Part-1: General requirements
+                </small>
+              </div>
+            )}
+            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', marginLeft: 'auto', marginTop: "1rem" }}>
+              <h4>
+                <Link className="logo" to="/usecases">Usecases</Link>
+
+                <button className="btn" type="button" onClick={toggleSidebar} aria-controls="offcanvasExample">
+                  <span className="navbar-toggler-icon"></span>
+                </button>
+              </h4>
+            </div>
       </nav>
 
       <div
@@ -78,7 +99,7 @@ const Navbar = () => {
           <hr />
           <Link className="links" to="/generaldetails" onClick={() => closeOffcanvas()}>
             <div className="hoverEffect">
-            <span className="icons material-symbols-outlined">dashboard</span> DashBoard
+              <span className="icons material-symbols-outlined">dashboard</span> DashBoard
             </div>
           </Link>
 
@@ -89,13 +110,13 @@ const Navbar = () => {
             <div className="sub-categories">
               <Link className="links" to="/omission" onClick={() => closeOffcanvas('content1')}>
                 <div className="hoverEffect">
-                    Omission
+                  Omission
                 </div>
               </Link>
               <Link className="links" to="/comission" onClick={() => closeOffcanvas('content1')}>
-              <div className="hoverEffect">
+                <div className="hoverEffect">
                   Comission
-              </div>
+                </div>
               </Link>
             </div>
           </div>
@@ -118,10 +139,10 @@ const Navbar = () => {
             </div>
           </div>
           <Link className="links" to="/userdefined" onClick={() => closeOffcanvas('content2')} >
-                <div className="hoverEffect">
-                  UserDefined
-                </div>
-              </Link>
+            <div className="hoverEffect">
+              UserDefined
+            </div>
+          </Link>
 
         </div>
       </div>

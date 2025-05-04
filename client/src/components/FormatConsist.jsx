@@ -47,11 +47,16 @@ const FormatConsist = () => {
         <option value="District">District Format</option>
         <option value="UnionTerrorits">Union Territories Format</option>
       </select>
-      <div className="alert alert-primary" style={{ margin: "20px 100px" }}>
+
+
+      {selectedFormat === "Select the option" && (
+        <div className="alert alert-primary" style={{ margin: "20px 100px", textAlign: "justify" }}>
         <b>Definition: </b> Format Consistency ensures that data values adhere
         to the specified format, structure and encoding rules
         <br />
+        <b>Reference: </b>ISO 19157:2013(E) Annex D(D.3.3) - The data quality measures for the data quality element Format Consistency are provided in Tables D.19 to D.21. (Page No. 61)
       </div>
+      )}
 
       {selectedFormat === "StationCode" && <Pincode />}
       {selectedFormat === "PhoneNo" && <Phoneformate />}

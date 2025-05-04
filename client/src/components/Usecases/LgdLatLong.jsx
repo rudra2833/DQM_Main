@@ -168,9 +168,9 @@ const LgdLatLong = () => {
 
   return (
     <div>
-      <h1 style={{ textAlign: "center", marginTop: "2%", marginBottom: "2%" }}>
+      <h2 style={{ textAlign: "center", marginTop: "2%", marginBottom: "2%" }}>
         Geospatial Data Correction Using Administrative Boundaries
-      </h1>
+      </h2>
       <div className="alert alert-primary" style={{ margin: "20px 100px" }}>
         <li>
           <b>Geospatial Data Validation:</b> Upload your geospatial data

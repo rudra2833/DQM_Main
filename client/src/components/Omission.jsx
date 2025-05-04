@@ -263,14 +263,15 @@ const Omission = () => {
             )}
           </button>
         </center>
-        <div className="alert alert-primary" style={{margin: "20px 100px", }}>
+        <div className="alert alert-primary" style={{margin: "20px 100px", textAlign: "justify"}}>
           <b>Definition: </b> Omission refers to the absence of required data within the dataset. It identifies gaps or missing features that should be present according to the reference data or the specification
           <br />
           <b>Formula: </b> (Count of Omitted Features / (Total
           number of features * Total number of records)) * 100
+          <br />
+          <b>Reference: </b>ISO 19157:2013(E) Annex D(D.2.2) - The data quality measures for the data quality  element Omission are provided in Tables D.5 to D.6. (Page No. 53) 
         </div>
         <br />
-        
         <center>
           <div
             style={{

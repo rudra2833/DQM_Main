@@ -416,8 +416,10 @@ const DomainConsistency = () => {
           </button>
         </center>
 
-        <div className="alert alert-primary" style={{ margin: "20px 100px", }}>
+        <div className="alert alert-primary" style={{ margin: "20px 100px", textAlign: "justify" }}>
           <b>Definition: </b> Domain Consistency ensures that the attribute value fall within the predefined range or set of acceptable values.
+          <br />
+          <b>Reference: </b>ISO 19157:2013(E) Annex D(D.3.2) - The data quality measures for the data quality element Domain Consistency are provided in Tables D.14 to D.18. (Page No. 59)
         </div>
 
         <center>

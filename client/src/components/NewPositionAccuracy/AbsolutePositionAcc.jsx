@@ -213,13 +213,15 @@ const AbsolutePositionAcc = () => {
       <h1>Absolute Positional Accuracy Measurement Tool</h1>
 
       <div className="main-content">
-        <div
+      <div
           className="alert alert-primary"
-          style={{ margin: "0px 100px", marginBottom: "20px" }}
+          style={{ margin: "0px 100px", marginBottom: "20px" , textAlign: "justify" }}
         >
           <b>Definition: </b> Absolute Position Accuracy refers to how
           accurately a location corresponds to its true position on the Earth's
           coorditates systems. (Latitude/Longitude)
+          <br />
+          <b>Reference: </b>ISO 19157:2013(E) Annex D(D.4.1.3) - The data quality measures for the data quality element Absolute or External Positional Accuracy are provided in Tables D.44 to D.53. (Page No. 83)
         </div>
 
         <div className="left-panel">

@@ -43,7 +43,7 @@ const CardDash = ({
     {
       header: "Thematic Quality",
       subHeaders: [
-        "Thematic Classification Correctness",
+        "Classification Correctness",
         "Non-quantitative Attribute Correctness",
         "Quantitative Attribute Accuracy",
       ],
@@ -66,7 +66,7 @@ const CardDash = ({
     "Domain Consistency": "/domainconsistency",
     "Temporal validity": "/temporalvalid",
     "Accuracy of a Time Measurement": "/activemeasurement",
-    "Thematic Classification Correctness": "/ThematicClassification",
+    "Classification Correctness": "/ThematicClassification",
     "Non-quantitative Attribute Correctness": "/nonquantitative",
     "External/Absolute Positional Accuracy": "/absolutepositionalaccuracy",
     "Internal/Relative Positional Accuracy": "/relativepositionalaccuracy",

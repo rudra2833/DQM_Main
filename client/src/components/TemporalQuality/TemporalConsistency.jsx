@@ -202,17 +202,27 @@ const TemporalConsistency = () => {
   return (
     <MainContainer>
       <h3 style={{ marginTop: "10px", marginBottom: "10px" }}>
-        Temporal Consistency
+        Temporal Consistency: One Date
       </h3>
+      <div
+        className="alert alert-primary"
+        style={{ margin: "20px 100px", textAlign: "justify" }}
+      >
+        <b>Definition: </b> Correctness of the order of events.
+        <br />
+        <b>Reference: </b>ISO 19157:2013(E) Annex D(D.5.2) - The data quality
+        measures for the data quality element Temporal Consistency are provided
+        in Tables D.62. (Page No. 96)
+      </div>
 
       <input
-            className="form-control uploadBtnInput"
-            id="formFile"
-            style={{ height: "2.5%", width: "355px" }}
-            onChange={handleFileChange}
-            type="file"
-            name="excelFile"
-          />
+        className="form-control uploadBtnInput"
+        id="formFile"
+        style={{ height: "2.5%", width: "355px" }}
+        onChange={handleFileChange}
+        type="file"
+        name="excelFile"
+      />
       <br />
       <Button onClick={fetchFieldNames}>Read Dataset</Button>
 

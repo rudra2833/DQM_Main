@@ -231,12 +231,14 @@ const Comission = () => {
           Start Test
         </button>
       </center>
-      <div className="alert alert-primary" style={{ margin: "20px 100px", }}>
+      <div className="alert alert-primary" style={{ margin: "20px 100px", textAlign: "justify" }}>
         <b>Definition: </b> Commission refers to extra, unnecessary, or incorrect data that should not be in the dataset. It identifies redundant or falsely included features.
         <br />
         <b>Formula: </b>(Total Available Attribute Headings
         - Data Product Specification / Total Available Attribute Headings ) *
         100
+        <br />
+          <b>Reference: </b>ISO 19157:2013(E) Annex D(D.2.1) - The data quality measures for the data quality  element Commission are provided in Tables D.1 to D.4. (Page No. 50) 
       </div>
 
       <div>

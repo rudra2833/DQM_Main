@@ -419,7 +419,7 @@ const attributeSelected = ()=>{
 
   return (
     <>
-      <h2> Accuracy of Decimal Measurement</h2>
+    <h2 style={{textAlign: "center", marginBottom: "15px"}}> Accuracy of Decimal Measurement</h2>
       <center>
         <input
           style={{

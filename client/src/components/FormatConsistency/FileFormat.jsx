@@ -105,9 +105,9 @@ const FormatConsistency = () => {
 <>
 
 
-        <h2 style={{marginLeft:"40px",marginTop:"40px"}}>File format Consistency</h2>
+        <h2 style={{ textAlign: 'center'}}>File Format Consistency</h2>
         <center>
-          <h2 style={{marginTop:"10px"}}>Primary Key Constraint</h2>
+          <h3 style={{marginTop:"10px"}}>Primary Key Constraint</h3>
           <input className="form-control uploadBtnInput" id="formFile" style={{ height: "2.5%", width: "355px",marginTop:"10px" }} onChange={handleFileChange} type="file" />
           <button type="button" className="btn btn-primary" onClick={fetchFieldNames} style={{marginTop:"10px"}}>Start Test</button>
           <div
@@ -155,7 +155,7 @@ const FormatConsistency = () => {
           </Table>
         </div>
         <center>
-          <h2>Foreign Key Constraint</h2>
+          <h3>Foreign Key Constraint</h3>
           <input className="form-control uploadBtnInput" id="formFile" style={{ height: "2.5%", width: "355px",marginTop:"10px" }} onChange={multiplehandleFileChange} type="file" multiple />
           <button type="button" className="btn btn-primary" style={{marginTop:"10px"}} onClick={fetchForeignKeyValues}>Check Validity</button>
         </center>

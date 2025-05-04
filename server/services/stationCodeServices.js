@@ -9,35 +9,18 @@ const stationCodeServices = {
   
     async SelectedCode(filename, attributes) {
         try {
-            // console.log(filename);
-           
-
-            console.log("hi:" +attributes);
-            // console.log(attributes[0]);
-            // console.log("-------")
             const filePath = path.join(__dirname, "..", "uploads", filename);
           
             const rawData = fs.readFileSync(filePath);
             const data = JSON.parse(rawData);
            
             const typ = attributes[0].value;
-           
-  
-            console.log(data);
-            console.log(typ);
-          console.log("gi" +data[2][typ]);
           
-         
-              const response = await axios.get(`https://raw.githubusercontent.com/danger9912/stationCodejson/main/stationCode.json`)
+            const response = await axios.get(`https://raw.githubusercontent.com/danger9912/stationCodejson/main/stationCode.json`)
             //   console.log(response.data)
               const stationCodes = response.data.data.map(
                 
                 station => station.code);
-          
-        //       // Return the station codes as JSON
-        console.log("Hi"+stationCodes)
-          
-        // //   let originalDate;
 
         let I =0;
         let W =0;
@@ -59,7 +42,6 @@ const stationCodeServices = {
         });
         
           const comb = {data : combinedData, errorcount : W,validCount :I}
-        console.log(comb);
         
             return comb;
         } catch (err) {

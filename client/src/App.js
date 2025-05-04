@@ -53,6 +53,7 @@ import ConceptualConsistency from "./components/ConceptualConsistency.jsx";
 // usecase added
 import Usecases from "./components/Usecases";
  import LgdLatLong from "./components/Usecases/LgdLatLong.jsx"
+ import OCSpatialCheck from "./components/Usecases/OCSpatialCheck.jsx"
 
 
 //topological added
@@ -106,6 +107,8 @@ function App() {
           {/* usecase added */}
          <Route path="/usecases" element={<Usecases />} />
          <Route path="/usecases/lgdlatlong" element={<LgdLatLong />} />
+         <Route path="/usecases/geoSpartialCommissionCheck" element={<OCSpatialCheck />} />
+
 
 
 

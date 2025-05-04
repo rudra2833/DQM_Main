@@ -75,7 +75,7 @@ const phoneServices = {
       }));
     }
 
-    // Assume user selects **only one** attribute for phone, e.g., ["phoneNo"]
+    // Assume user selects *only one* attribute for phone, e.g., ["phoneNo"]
     const phoneField = attributes[0]; // taking the first attribute as the phone number field
 
     // Validate phone numbers

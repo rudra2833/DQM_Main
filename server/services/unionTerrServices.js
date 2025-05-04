@@ -13,9 +13,9 @@ const unionTerrServices = {
       const typ = attributes[0].value;
 
       // Fetch union territory names from the database
-      const result = await db.query("SELECT utname FROM unionterritories");
+      const result = await db.query("SELECT DISTINCT state FROM statedistricttype WHERE type!='State'");
       const unionTerritories = result.rows.map((row) =>
-        row.utname.toUpperCase()
+        row.state.toUpperCase()
       );
 
       let validCount = 0;
