@@ -1,7 +1,7 @@
 import React from "react";
 import * as XLSX from "xlsx";
 
-const ResultDisplay = ({ results }) => {
+const ResultDisplaySpatialOmission = ({ results }) => {
   // Convert hex image data back to bytes
   const hexToBytes = (hex) => {
     const bytes = new Uint8Array(hex.length / 2);
@@ -14,20 +14,19 @@ const ResultDisplay = ({ results }) => {
   // Create image URLs from the hex data
   const referenceImageData = results.reference_image
     ? URL.createObjectURL(
-        new Blob([hexToBytes(results.reference_image)], {
-          type: "image/jpeg",
-        })
-      )
+      new Blob([hexToBytes(results.reference_image)], {
+        type: "image/jpeg",
+      })
+    )
     : null;
 
   const measuredImageData = results.measured_image
     ? URL.createObjectURL(
-        new Blob([hexToBytes(results.measured_image)], {
-          type: "image/jpeg",
-        })
-      )
+      new Blob([hexToBytes(results.measured_image)], {
+        type: "image/jpeg",
+      })
+    )
     : null;
-
 
   const originalCounts = results.original_counts || {};
   const errorCounts = results.error_counts || {};
@@ -40,10 +39,6 @@ const ResultDisplay = ({ results }) => {
     (sum, val) => sum + val,
     0
   );
-  const totalError = Object.values(errorCounts).reduce(
-    (sum, val) => sum + val,
-    0
-  );
 
   const omissionDetails = symbolLabels
     .map((label) => {
@@ -53,19 +48,7 @@ const ResultDisplay = ({ results }) => {
     })
     .filter(Boolean);
 
-  const commissionDetails = symbolLabels
-    .map((label) => {
-      const commissionCount =
-        (errorCounts[label] || 0) - (originalCounts[label] || 0);
-      return commissionCount > 0 ? { label, count: commissionCount } : null;
-    })
-    .filter(Boolean);
-
   const omissionSymbols = omissionDetails.reduce(
-    (sum, item) => sum + item.count,
-    0
-  );
-  const commissionSymbols = commissionDetails.reduce(
     (sum, item) => sum + item.count,
     0
   );
@@ -74,10 +57,8 @@ const ResultDisplay = ({ results }) => {
     totalOriginal > 0
       ? ((omissionSymbols / totalOriginal) * 100).toFixed(2)
       : "0.00";
-  const commissionRate =totalOriginal > 0? ((commissionSymbols / totalOriginal) * 100).toFixed(2): "0.00";
 
   const handleSave = () => {
-
     if (referenceImageData) {
       const link = document.createElement("a");
       link.href = referenceImageData;
@@ -86,7 +67,7 @@ const ResultDisplay = ({ results }) => {
       link.click();
       document.body.removeChild(link);
     }
-    
+
     // Save the measured image
     if (measuredImageData) {
       const link = document.createElement("a");
@@ -96,7 +77,7 @@ const ResultDisplay = ({ results }) => {
       link.click();
       document.body.removeChild(link);
     }
-  
+
     // Prepare Excel data (unchanged from your original code)
     const tableData = symbolLabels.map((label) => ({
       "Symbol Name": label,
@@ -105,31 +86,27 @@ const ResultDisplay = ({ results }) => {
       "Omission Count": (originalCounts[label] || 0) > (errorCounts[label] || 0)
         ? (originalCounts[label] || 0) - (errorCounts[label] || 0)
         : 0,
-      "Commission Count": (errorCounts[label] || 0) > (originalCounts[label] || 0)
-        ? (errorCounts[label] || 0) - (originalCounts[label] || 0)
-        : 0,
     }));
-  
+
+
     tableData.push({
       "Symbol Name": "Total",
       "Reference Image Count": totalOriginal,
-      "User Image Count": totalError,
+      "User Image Count": Object.values(errorCounts).reduce((sum, val) => sum + val, 0),
       "Omission Count": omissionSymbols,
-      "Commission Count": commissionSymbols,
     });
-  
+
     tableData.push({});
     tableData.push({ "Symbol Name": "Omission Rate (%)", "Reference Image Count": omissionRate });
-    tableData.push({ "Symbol Name": "Commission Rate (%)", "Reference Image Count": commissionRate });
-  
+
     const worksheet = XLSX.utils.json_to_sheet(tableData);
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, "Results");
-  
+
     XLSX.writeFile(workbook, "results.xlsx");
   };
 
-  return (<div style={{marginBottom: "2rem" }}>
+  return (<div style={{ marginBottom: "2rem" }}>
     <div style={{ backgroundColor: "white", padding: "1rem", borderRadius: "8px", boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)" }}>
       <h2 style={{ fontSize: "1.25rem", fontWeight: "600", marginBottom: "1rem" }}>Images</h2>
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
@@ -159,11 +136,11 @@ const ResultDisplay = ({ results }) => {
         </div>
       </div>
     </div>
-  
+
     <div style={{ backgroundColor: "white", padding: "1rem", borderRadius: "8px", boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)" }}>
       <h2 style={{ fontSize: "1.25rem", fontWeight: "600", marginBottom: "1rem" }}>Assessment Summary</h2>
       {results.differences.length === 0 ? (
-        <p style={{ color: "#16A34A" }}>No errors found ✅</p>
+        <p style={{ color: "#16A34A" }}>No omissions found ✅</p>
       ) : (
         <div style={{ marginBottom: "1.5rem" }}>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.5rem" }}>
@@ -171,56 +148,32 @@ const ResultDisplay = ({ results }) => {
               <p style={{ fontSize: "1.125rem", fontWeight: "700", color: "#B91C1C" }}>Omission Rate</p>
               <p style={{ fontSize: "1rem", fontWeight: "600", color: "#4B5563" }}>{omissionRate}% omission</p>
             </div>
-  
-            <div style={{ padding: "1rem", backgroundColor: "#DBEAFE", borderRadius: "8px" }}>
-              <p style={{ fontSize: "1.125rem", fontWeight: "600", color: "#1D4ED8" }}>Commission Rate</p>
-              <p style={{ fontSize: "1rem", fontWeight: "600", color: "#4B5563" }}>{commissionRate}% Commission</p>
-            </div>
-          </div>
-  
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.5rem", marginTop:" 1rem" }}>
-            <div style={{ padding: "1rem", backgroundColor: "#FEE2E2", borderRadius: "8px", border: "1px solid #FCA5A5" }}>
-              <p style={{ fontSize: "1.125rem", fontWeight: "600", color: "#B91C1C" }}>Omission Symbols</p>
-              <p style={{ fontSize: "0.875rem", color: "#6B7280", marginBottom: "0.5rem" }}>
-                Total {omissionSymbols} Symbols missing from the Reference Image
-              </p>
-              {omissionDetails.length > 0 && (
-                <div style={{ marginTop: "0.5rem" }}>
-                  <p style={{ fontWeight: "500", color: "#B91C1C" }}>Missing Symbols:</p>
-                  <ul style={{ listStyleType: "disc", paddingLeft: "1.25rem", fontSize: "0.875rem" }}>
-                    {omissionDetails.map((item, index) => (
-                      <li key={index}>
-                        {item.label}: {item.count} missing
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </div>
-  
-            <div style={{ padding: "1rem", backgroundColor: "#DBEAFE", borderRadius: "8px", border: "1px solid #93C5FD" }}>
-              <p style={{ fontSize: "1.125rem", fontWeight: "600", color: "#1D4ED8" }}>Commission Symbols</p>
-              <p style={{ fontSize: "0.875rem", color: "#6B7280", marginBottom: "0.5rem" }}>
-                Total {commissionSymbols} Extra symbols are not in the Measured Image
-              </p>
-              {commissionDetails.length > 0 && (
-                <div style={{ marginTop: "0.5rem" }}>
-                  <p style={{ fontWeight: "500", color: "#1D4ED8" }}>Extra Symbols:</p>
-                  <ul style={{ listStyleType: "disc", paddingLeft: "1.25rem", fontSize: "0.875rem" }}>
-                    {commissionDetails.map((item, index) => (
-                      <li key={index}>
-                        {item.label}: {item.count} extra
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
+
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.5rem" }}>
+              <div style={{ padding: "1rem", backgroundColor: "#FEE2E2", borderRadius: "8px", border: "1px solid #FCA5A5" }}>
+                <p style={{ fontSize: "1.125rem", fontWeight: "600", color: "#B91C1C" }}>Omission Symbols</p>
+                <p style={{ fontSize: "0.875rem", color: "#6B7280", marginBottom: "0.5rem" }}>
+                  Total {omissionSymbols} Symbols missing from the Reference Image
+                </p>
+                {omissionDetails.length > 0 && (
+                  <div style={{ marginTop: "0.5rem" }}>
+                    <p style={{ fontWeight: "500", color: "#B91C1C" }}>Missing Symbols:</p>
+                    <ul style={{ listStyleType: "disc", paddingLeft: "1.25rem", fontSize: "0.875rem" }}>
+                      {omissionDetails.map((item, index) => (
+                        <li key={index}>
+                          {item.label}: {item.count} missing
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
       )}
     </div>
-  
+
     <div style={{ backgroundColor: "white", padding: "1rem", borderRadius: "8px", boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)" }}>
       <h2 style={{ fontSize: "1.25rem", fontWeight: "600", marginBottom: "1rem" }}>Symbol Counts</h2>
       <div style={{ overflowX: "auto" }}>
@@ -239,9 +192,6 @@ const ResultDisplay = ({ results }) => {
               <th style={{ padding: "0.75rem", textAlign: "left", fontSize: "0.875rem", fontWeight: "500", color: "#6B7280", textTransform: "uppercase", textAlign: "center" }}>
                 Omission Count
               </th>
-              <th style={{ padding: "0.75rem", textAlign: "left", fontSize: "0.875rem", fontWeight: "500", color: "#6B7280", textTransform: "uppercase", textAlign: "center" }}>
-                Commission Count
-              </th>
             </tr>
           </thead>
           <tbody style={{ backgroundColor: "white", borderBottom: "1px solid #E5E7EB" }}>
@@ -249,7 +199,6 @@ const ResultDisplay = ({ results }) => {
               const original = originalCounts[label] || 0;
               const error = errorCounts[label] || 0;
               const omission = original > error ? original - error : 0;
-              const commission = error > original ? error - original : 0;
               return (
                 <tr key={label}>
                   <td style={{ padding: "1rem", fontWeight: "500" }}>
@@ -264,28 +213,20 @@ const ResultDisplay = ({ results }) => {
                   <td style={{ padding: "1rem", textAlign: "center", color: "#DC2626" }}>
                     {omission}
                   </td>
-                  <td style={{ padding: "1rem", textAlign: "center", color: "#2563EB" }}>
-                    {commission}
-                  </td>
                 </tr>
               );
             })}
-            {/* Total row */}
-            <tr style={{ backgroundColor: "#F3F4F6", fontWeight: "600" }}>
-              <td style={{ padding: "1rem" }}>Total</td>
-              <td style={{ padding: "1rem", textAlign: "center" }}>
-                {totalOriginal}
+            <tr style={{ backgroundColor: '#f7fafc', fontWeight: '600' }}>
+              <td style={{ padding: '1rem 1.5rem', whiteSpace: 'nowrap' }}>Total</td>
+              <td style={{ padding: '1rem 1.5rem', whiteSpace: 'nowrap', textAlign: 'center' }}>{totalOriginal}</td>
+              <td style={{ padding: '1rem 1.5rem', whiteSpace: 'nowrap', textAlign: 'center' }}>
+                {Object.values(errorCounts).reduce((sum, val) => sum + val, 0)}
               </td>
-              <td style={{ padding: "1rem", textAlign: "center" }}>
-                {totalError}
-              </td>
-              <td style={{ padding: "1rem", textAlign: "center", color: "#B91C1C" }}>
+              <td style={{ padding: '1rem 1.5rem', whiteSpace: 'nowrap', textAlign: 'center', color: '#b91c1c' }}>
                 {omissionSymbols}
               </td>
-              <td style={{ padding: "1rem", textAlign: "center", color: "#1D4ED8" }}>
-                {commissionSymbols}
-              </td>
             </tr>
+
           </tbody>
         </table>
       </div>
@@ -293,15 +234,13 @@ const ResultDisplay = ({ results }) => {
     <div style={{ display: "flex", justifyContent: "flex-end" }}>
       <button
         onClick={handleSave}
-        style={{ backgroundColor: '#3B82F6', color: "white", padding: "0.5rem 1.5rem", borderRadius: "0.375rem", cursor: "pointer", transition: "background-color 0.2s", margin:"1%" }}
-        onMouseEnter={(e) => e.target.style.backgroundColor = "#047857"}
-        onMouseLeave={(e) => e.target.style.backgroundColor = "#10B981"}
+        style={{ backgroundColor: '#3B82F6', color: "white", padding: "0.5rem 1.5rem", borderRadius: "0.375rem", cursor: "pointer", transition: "background-color 0.2s", margin: "1%" }}
       >
         Download Results
       </button>
     </div>
   </div>
-  );
+  )
 };
 
-export default ResultDisplay;
+export default ResultDisplaySpatialOmission;

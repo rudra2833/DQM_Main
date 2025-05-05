@@ -1,8 +1,12 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from './components/Home';
 import Navbar from './components/Navbar';
-import Omission from './components/Omission';
-import Comission from './components/Comission';
+
+// import NonSpatialOmission from './components/CompletenessCheck/NonSpatialOmission.jsx';
+// import NonSpatialCommission from './components/CompletenessCheck/NonSpatialCommission.jsx';
+import OmissionMain from './components/CompletenessCheck/OmissionMain.jsx';
+import CommissionMain from './components/CompletenessCheck/CommissionMain.jsx';
+
 import GeneralDetails from './components/GeneralDetails';
 import DomainConsistency from './components/DomainConsistency';
 // import FormatConsistency from "./components/FormatConsistency";
@@ -60,6 +64,10 @@ import Usecases from "./components/Usecases";
 import TopologicalConsistency from "./components/TopologyicalConsistency/TopologicalConsistency.jsx";
 import PolygonOverlap from "./components/TopologyicalConsistency/PolygonOverlap.jsx";
 
+
+//oc addd
+
+
 function App() {
   return (
     <BrowserRouter>
@@ -67,8 +75,10 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/generaldetails" element={<GeneralDetails />} />
-        <Route path="/omission" element={<Omission />} />
-        <Route path="/comission" element={<Comission />} />
+
+        <Route path="/omission" element={<OmissionMain />} />
+        <Route path="/comission" element={<CommissionMain />} />
+        
         <Route path="/domainconsistency" element={<DomainConsistency />} />
         <Route path="/formatconsistency" element={<FormatConsist />} />
         <Route path="/format" element={<Format />} />

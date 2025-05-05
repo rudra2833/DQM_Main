@@ -7,14 +7,13 @@ import "primeicons/primeicons.css";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-// import DownloadIcon from "@mui/icons-material/Download";
-import "./Omission.css";
+import "../Omission.css";
 import { Modal, Button, Table, Spinner } from "react-bootstrap";
 
 import * as XLSX from "xlsx";
 import * as FileSaver from "file-saver";
 
-const Omission = () => {
+const NonSpatialOmission = () => {
   const omissionData = {
     file_name: "",
     field_names: "",
@@ -237,7 +236,7 @@ const Omission = () => {
   return (
     <>
       <div>
-        <h2 style={{textAlign: "center", margin: "20px"}}>&nbsp;Omission</h2>
+        <h2 style={{textAlign: "center", margin: "20px"}}>&nbsp;Omission For Non-Spatial Data</h2>
         <center>
           <input
             className="form-control uploadBtnInput"
@@ -475,4 +474,4 @@ const Omission = () => {
   );
 };
 
-export default Omission;
+export default NonSpatialOmission;

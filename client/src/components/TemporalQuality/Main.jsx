@@ -8,7 +8,7 @@ const FormatConsist = () => {
 
   return (
     <>
-      <center>
+      <center style={{ marginTop: "20px",  fontSize: "13px"  }}>
         <button
           onClick={() => {
             setOneDate(1);

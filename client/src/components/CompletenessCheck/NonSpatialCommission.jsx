@@ -13,7 +13,7 @@ import { Modal, Button, Table } from "react-bootstrap";
 import * as XLSX from "xlsx";
 import * as FileSaver from "file-saver";
 
-const Comission = () => {
+const NonSpatialCommission = () => {
   const comissionData = {
     file_name: "",
     field_names: "",
@@ -210,7 +210,7 @@ const Comission = () => {
 
   return (
     <>
-      <h2 style={{textAlign: "center", margin: "20px"}}>&nbsp;Comission</h2>
+      <h2 style={{textAlign: "center", margin: "20px"}}>&nbsp;Comission For Non-Spatial Data</h2>
       <center>
         <input
           className="form-control uploadBtnInput"
@@ -427,4 +427,4 @@ const Comission = () => {
   );
 };
 
-export default Comission;
+export default NonSpatialCommission;

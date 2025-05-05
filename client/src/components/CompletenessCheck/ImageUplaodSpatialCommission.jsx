@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const ImageUpload = ({ onCompare }) => {
+const ImageUplaodSpatialCommission = ({ onCompare }) => {
   const [original, setOriginal] = useState(null);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -19,7 +19,7 @@ const ImageUpload = ({ onCompare }) => {
     setIsLoading(true);
     try {
       const res = await axios.post(
-        "http://localhost:5001/api/usecases/geoSpatialOCCheck/compare",
+        "http://localhost:5001/api/spatialCommissionCheck/compare",
         formData
       );
       onCompare(res.data);
@@ -117,4 +117,4 @@ const ImageUpload = ({ onCompare }) => {
   );
 };
 
-export default ImageUpload;
+export default ImageUplaodSpatialCommission;
