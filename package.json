@@ -3,9 +3,13 @@
         "start": "concurrently \"npm run server\" \"npm run client\"",
         "server": "cd server && npm start",
         "client": "cd client && npm start",
+        "pythonserver": "cd Py-server && venv\\Scripts\\activate && python app.py",
+
         "new": "concurrently \"npm run serverinit\" \"npm run clientinit\"",
         "serverinit": "cd server && npm i && npm start",
-        "clientinit": "cd client && npm i && npm start"
+        "clientinit": "cd client && npm i && npm start",
+        "pythonserverinnit": "cd Py-server && python -m venv venv && venv\\Scripts\\activate && pip install -r requirements.txt && pip install flask_cors && pip install shapefile && pip install shapely && pip install pyshp && pip install ultralytics && python app.py"
+
     },
     "devDependencies": {
         "concurrently": "^9.1.2"

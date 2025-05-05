@@ -12,7 +12,7 @@ const OCSpatialCheck = () => {
   const containerStyle = {
     minHeight: '100vh',
     // backgroundColor: '#f3f4f6', // Tailwind's gray-100
-    padding: '1.5rem',
+    // padding: '1.5rem',
   };
 
   const wrapperStyle = {
@@ -43,18 +43,20 @@ const OCSpatialCheck = () => {
   return (
     <div style={containerStyle}>
       <div style={wrapperStyle}>
-        <h1 style={{ textAlign: "center", marginTop: "2%"}}>
-        Symbol Comparison Tool
-        </h1>
+        <h2 style={{ textAlign: "center", marginTop: "2%" }}>
+        Geospatial Completeness Check
+        </h2>
         {/* <h2 style={{ textAlign: "center", marginBottom: "2%" }}>
         Upload two maps to compare their symbols and detect differences
         </h2> */}
         <div className="alert alert-primary" style={{ margin: "20px 100px" }}>
-        <li>
-        Upload two maps to compare their symbols and detect differences
-        </li>
-      </div>
-      <br />
+          <li>Upload two maps (reference and test) for symbol and spatial feature comparison.</li>
+          <li>Detects omissions (missing elements) and commissions (extra elements) automatically.</li>
+          <li>Calculates omission and commission rates based on ISO 19157:2013(E) standards.</li>
+          <li>Displays a visual overlay to highlight discrepancies between the maps.</li>
+          <li>Ensures spatial completeness and symbol consistency for accurate map validation.</li>
+        </div>
+        <br />
 
         <div style={cardStyle}>
           <ImageUpload onCompare={handleResults} />
